@@ -45,7 +45,7 @@ android {
     namespace = "app.attestation.auditor"
 
     defaultConfig {
-        applicationId = "app.attestation.auditor"
+        applicationId = "app.attestation.auditor.custom"
         minSdk = 33
         targetSdk = 36
         versionCode = 93
