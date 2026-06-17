@@ -12,13 +12,14 @@ plugins {
     id("com.android.application")
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
-}
+
 
 android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
     if (useKeystoreProperties) {
         signingConfigs {
             create("release") {
