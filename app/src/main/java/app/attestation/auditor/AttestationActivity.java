@@ -472,7 +472,7 @@ public class AttestationActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.menu_attestation, menu);
         menu.findItem(R.id.action_clear_auditee).setEnabled(isSupportedAuditee);
-        menu.findItem(R.id.action_submit_sample).setEnabled(!BuildConfig.DEBUG);
+        menu.findItem(R.id.action_submit_sample).setEnabled(true);
         return true;
     }
 
@@ -480,8 +480,7 @@ public class AttestationActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(final Menu menu) {
         final boolean isRemoteVerifyEnabled = RemoteVerifyJob.isEnabled(this);
         menu.findItem(R.id.action_disable_remote_verify).setEnabled(isRemoteVerifyEnabled);
-        menu.findItem(R.id.action_submit_sample).setEnabled(!BuildConfig.DEBUG &&
-                !SubmitSampleJob.isScheduled(this));
+        menu.findItem(R.id.action_submit_sample).setEnabled(!SubmitSampleJob.isScheduled(this));
         return true;
     }
 
