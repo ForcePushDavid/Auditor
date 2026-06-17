@@ -65,7 +65,23 @@ cp -r build/libs/* /cesta/k/deploy/
 systemctl start attestation
 ```
 
-### Krok 4: Spárování
+### Krok 4: Zákaz veřejné registrace (Volitelné, ale doporučené pro osobní server)
+Pokud nechcete, aby si na vašem serveru kdokoli mohl vytvořit účet (otevřená registrace je ve výchozím stavu zapnutá), můžete zablokovat příslušný koncový bod přímo na úrovni Nginx, aniž byste museli zasahovat do kódu serveru.
+
+Otevřete konfiguraci vašeho Nginxu (např. `/etc/nginx/nginx.conf` nebo příslušný soubor v `sites-available`) a do bloku `server` před směrování na `/api/` přidejte blokaci:
+
+```nginx
+        location = /api/create-account {
+            return 403;
+        }
+        
+        location ^~ /api/ {
+            proxy_pass http://backend;
+        }
+```
+Poté Nginx restartujte: `systemctl reload nginx`. Od této chvíle server na pokus o vytvoření účtu odpoví chybou 403 Forbidden.
+
+### Krok 5: Spárování
 1. Přihlaste se na svůj účet ve webovém rozhraní vašeho AttestationServeru.
 2. Spusťte na telefonu **svoji** custom kompilaci Auditoru (ne tu oficiální).
 3. Naskenujte QR kód. Na telefonu by se měla zobrazit informace o úspěšném zpracování (případně success).
